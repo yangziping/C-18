@@ -1,0 +1,193 @@
+快排
+#define MAXSIZE 100000
+#define TRUE 1
+#define FALSE 0
+typedef struct
+{
+	int r[MAXSIZE+1];
+	int length;
+}SqList;
+int Partition(SqList* list,int low,int high);
+void Qsort(SqList*list,int low,int high); 
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+	int i; 
+	SqList L;
+	SqList *list;
+	list=&L;
+	for(i=0;i<10001;i++)
+	{
+		list->r[i]=rand()%100;
+	}
+	list->length=10001;
+	Qsort(list,1,list->length-1);
+		for(i=1;i<list->length;i++)
+	   printf("%d\t",list->r[i]);
+}
+int Partition(SqList *list,int low,int high) //快排每一趟的进行，并返回中轴位置 
+{
+	int pivotkey;
+	list->r[0]=list->r[low];
+	pivotkey=list->r[low];
+	while(low<high)
+  {
+	while(low<high&&list->r[high]>=pivotkey)
+	{
+		high=high-1;
+	}
+	list->r[low]=list->r[high];
+	while(low<high&&list->r[low]<=pivotkey)
+	{
+		low=low+1;
+	}
+	list->r[high]=list->r[low];
+   }
+   list->r[low]=list->r[0];
+   return low;
+}
+//快排递归
+void Qsort(SqList*list,int low,int high)//递归快排 
+{
+	int Partition(SqList *list,int low,int high);
+	int pivotloc;
+	if(low<high)//长度大于一
+	{
+	 	pivotloc=Partition(list,low,high);
+	 	Qsort(list,low,pivotloc-1);
+	 	Qsort(list,pivotloc+1,high);
+	} 
+ } 
+ ###############################################################
+ 简单选择排序
+ #include<stdio.h>
+void SelectSort(int r[],int n);
+int main()
+{
+	int k;
+	int i,j;
+	int t;
+	int r[100000];
+	for(i=0;i<10001;i++)
+	{
+		r[i]=rand()%100;
+	}
+	int len=10001;
+	SelectSort(r,len);
+	for(k=1;k<=len-1;k++)
+	   printf("%d\t",r[k]);
+	return 0;   
+}
+void SelectSort(int r[],int len)
+{
+	int i,j,t;
+	for(i=1;i<len-1;i++)
+	  for(j=i+1;j<=len-1;j++)
+	    {
+	    	if(r[i]>r[j])
+	    	{
+	    	  t=r[i];
+	    	  r[i]=r[j];
+	    	  r[j]=t;
+	        }
+		 } 
+}
+##############################################################
+冒泡排序
+#define MAXSIZE 100000
+#define TRUE 1
+#define FALSE 0
+typedef struct
+{
+	int r[MAXSIZE+1];
+	int length;
+}SqList;
+void BubbleSort(SqList*list); 
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+	int i;
+	SqList L;
+	SqList *list;
+	list=&L;
+	for(i=0;i<10001;i++)
+	{
+		list->r[i]=rand()%100;
+	}
+	list->length=10001;
+	BubbleSort(list);
+	for(i=1;i<list->length;i++)
+	   printf("%d\t",list->r[i]);
+	return 0;    
+}
+void BubbleSort(SqList*list)
+{
+  int n=list->length;
+  int change=TRUE;
+  int i,j;
+  for(i=1;i<=n-1&&change;i++)//如果chang==FALSE说明已经是有序的 
+   {
+   	change=FALSE;
+   	for(j=1;j<=n-i-1;j++)
+   	 if(list->r[j]>list->r[j+1])
+   	 {
+   	 	list->r[0]=list->r[j];
+   	 	list->r[j]=list->r[j+1];
+   	 	list->r[j+1]=list->r[0];
+   	 	change=TRUE;
+		}
+   }
+  	
+}
+###########################################################
+直接插入上机排序
+#define MAXSIZE 100000
+#define TRUE 1
+#define FALSE 0
+typedef struct
+{
+	int r[MAXSIZE+1];
+	int length;
+}SqList;
+void InsertSort(SqList*list); 
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+	int i;
+	SqList L;
+	SqList *list;
+	list=&L;
+	for(i=0;i<10001;i++)
+	{
+		list->r[i]=rand()%100;
+	}
+	list->length=10001;
+	InsertSort(list);
+	for(i=1;i<list->length;i++)
+	printf("%d\t",list->r[i]);
+	return 0;    
+}
+void InsertSort(SqList*list)//插入排序 
+{
+	int i,j; 
+	int Latter_than(int a,int b);
+	for(i=2;i<=list->length;i++)
+	 if(Latter_than(list->r[i],list->r[i-1]))
+	 {
+	 	list->r[0]=list->r[i];  
+	 	list->r[i]=list->r[i-1];  //复制为哨兵 
+	 	for(j=i-2;Latter_than(list->r[0],list->r[j]);j--)
+	 	 list->r[j+1]=list->r[j]; //记录后移 
+	 	 list->r[j+1]=list->r[0]; //插入到正确位置 
+	 }
+}
+int Latter_than(int a,int b)
+{
+	if(a<b)
+	return TRUE;
+	else
+	return FALSE;
+}
