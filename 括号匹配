@@ -1,0 +1,176 @@
+typedef struct node
+{
+	char           data;
+	struct node   *next;
+ }LinkStackNode;
+typedef LinkStackNode LinkStack;
+#include<stdio.h>
+#include<stdlib.h>
+#define TRUE 1
+#define FALSE 0 
+void Push(LinkStack*top,char ch);
+ void Pop(LinkStack*top);
+ char Gettop(LinkStack*top);
+ char change(char ch);
+int main()
+{
+	LinkStack*top;
+	top=(LinkStack*)malloc(sizeof(LinkStackNode));
+	top->next=NULL;
+	char str[100];
+	gets(str);
+	int i;
+	for(i=0;str[i]!='\0';)
+	{
+	  if(str[i]=='('||str[i]==')'||str[i]=='{'||str[i]=='}'||str[i]=='['||str[i]==']')
+	  {//为了确保非括号字符输入后造成干扰 如[(d+f)*{}2]中的非括号字符 
+	 
+		if(top->next==NULL)
+		{
+		  Push(top,str[i]);
+		  i=i+1;
+	    }
+		else
+		 {
+		 	char c;
+		 	c=change(Gettop(top));
+		 	if(c==str[i])
+		 	{
+		 	  Pop(top);
+			  i++;   
+			}
+			else
+			{
+			 Push(top,str[i]);
+			 i++;
+		   }
+	    }
+	}
+	else i++;
+	}
+	if(top->next==NULL)
+    	printf("匹配成功\n");
+	else
+	    printf("匹配不成功\n");
+	 return 0;   
+}
+void Push(LinkStack*top,char ch)//压入栈 
+{
+	LinkStack*temp;
+	temp=(LinkStack*)malloc(sizeof(LinkStackNode));
+	temp->data=ch;
+	temp->next=top->next;
+	top->next=temp;
+}
+void Pop(LinkStack*top)//出栈 
+{
+	LinkStack*temp;
+	temp=top->next;
+	top->next=temp->next;
+	free(temp);
+}
+char Gettop(LinkStack*top)//取栈顶元素 
+{
+	char ch;
+	ch=top->next->data;
+	return ch;
+}
+char change(char ch)//改变字符 
+{
+	if(ch=='(')
+	 ch=')';
+	if(ch=='[')
+	  ch=']';
+	if(ch=='{')
+	  ch='}';
+	return ch;    
+}
+######################################################################################################################
+######################################################################################################################
+typedef struct node
+{
+	char           data;
+	struct node   *next;
+ }LinkStackNode;
+typedef LinkStackNode LinkStack;
+#include<stdio.h>
+#include<stdlib.h>
+#define TRUE 1
+#define FALSE 0 
+void Push(LinkStack*top,char ch);
+ void Pop(LinkStack*top);
+ char Gettop(LinkStack*top);
+ char change(char ch);
+int main()
+{
+	LinkStack*top;
+	top=(LinkStack*)malloc(sizeof(LinkStackNode));
+	top->next=NULL;
+	char str[100];
+	gets(str);
+	int i;
+	for(i=0;str[i]!='\0';)
+	{
+	  if(str[i]=='('||str[i]==')'||str[i]=='{'||str[i]=='}'||str[i]=='['||str[i]==']')
+	  {//为了确保非括号字符输入后造成干扰 如[(d+f)*{}2]中的非括号字符 
+	 
+		if(top->next==NULL)
+		{
+		  Push(top,str[i]);
+		  i=i+1;
+	    }
+		else
+		 {
+		 	char c;
+		 	c=change(Gettop(top));
+		 	if(c==str[i])
+		 	{
+		 	  Pop(top);
+			  i++;   
+			}
+			else
+			{
+			 Push(top,str[i]);
+			 i++;
+		   }
+	    }
+	}
+	else i++;
+	}
+	if(top->next==NULL)
+    	printf("匹配成功\n");
+	else
+	    printf("匹配不成功\n");
+	 return 0;   
+}
+void Push(LinkStack*top,char ch)//压入栈 
+{
+	LinkStack*temp;
+	temp=(LinkStack*)malloc(sizeof(LinkStackNode));
+	temp->data=ch;
+	temp->next=top->next;
+	top->next=temp;
+}
+void Pop(LinkStack*top)//出栈 
+{
+	LinkStack*temp;
+	temp=top->next;
+	top->next=temp->next;
+	free(temp);
+}
+char Gettop(LinkStack*top)//取栈顶元素 
+{
+	char ch;
+	ch=top->next->data;
+	return ch;
+}
+char change(char ch)//改变字符 
+{
+	if(ch=='(')
+	 ch=')';
+	if(ch=='[')
+	  ch=']';
+	if(ch=='{')
+	  ch='}';
+	return ch;    
+}
