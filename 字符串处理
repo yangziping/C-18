@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+int main()
+{
+	char a[30];
+	int i,j,k;
+	long long int s=0;
+	float l;
+	for(i=0;;i++)
+	{
+		scanf("%c",&a[i]);
+		if(a[i]=='\n')
+		break;
+	}
+	for(j=0;j<=i;j++)
+	{
+		k=(int)a[j];
+		if(k>=48&&k<=57)
+		{
+			s=10*s+k-48;
+		}
+	}
+	l=sqrt(s);
+	printf("%lld ",s);
+	printf("%.2f\n",l);
+	system("pause");
+	return 0;
+} 
