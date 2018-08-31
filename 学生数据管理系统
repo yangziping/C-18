@@ -1,0 +1,223 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<string.h>
+#define KIND 3//控制能够借阅的书的种类数 
+struct SHUJU {char id[15];char name[20];char didian[25];int number;double price;//图书信息储存 
+};
+struct xueSheng{char id[15];char name[10];SHUJU book[KIND];//学生信息储存 
+};
+FILE *fp,*efp;xueSheng students[50000];
+
+
+
+int main()
+{
+	
+    char a[15],b[10]={'e','m','p','t','y','\0'};int i=0,j=0,c,e,m=0,NUM,num=0,count=0,p=0;
+	if((efp=fopen("student","rt+"))==NULL)
+	{
+		printf("打开文件失败\n");
+		exit(1);
+	}
+	printf("请输入管理员密码：");
+	scanf("%d",&c);
+	if(c!=1234)//登录验证 
+	{
+		printf("密码错误,拒绝进入管理系统\n");//登录密码验证 
+	    return 0;
+	} 
+	printf("请输入查看模式，按0为初始化模式,按1为添加学生,按2为姓名查找，按3为学号查找:");
+	scanf("%d",&c);
+	if(0==c)
+	{
+		if((fp=fopen("students","wb"))==NULL)//打开文件 
+		{
+			printf("打开文件失败\n");
+			exit(1);
+		}
+		printf("请输入增加学生数：");
+	    scanf("%d",&NUM);
+		for(;i<NUM;i++)
+		{
+			printf("请输入学生编号："); 
+		    scanf("%s",&students[i].id);
+		    printf("请输入学生姓名："); 
+		    scanf("%s",&students[i].name);
+			for(num=0;num<KIND;num++)
+		    {
+		    	strcpy(students[i].book[num].didian,b);
+		    	strcpy(students[i].book[num].id,b);
+		    	strcpy(students[i].book[num].name,b);
+				students[i].book[num].number=0;
+				students[i].book[num].price=0.0;
+			}	
+		}
+		fprintf(efp,"%d",NUM);//储存此次学生数量到数据库 
+		rewind(efp); 	
+	}
+	fscanf(efp,"%d",&e); 
+	rewind(efp);
+	if(1==c)
+	{
+		if((fp=fopen("students","rb+"))==NULL)//打开文件 
+		{
+			printf("打开文件失败\n");
+			exit(1);
+		}
+		for(i=0;i<e;i++)
+		if(fread(&students[i],sizeof(xueSheng),1,fp)!=1)//读取文件数据至内存 
+		{
+			printf("文件读取信息提前终止\n");
+			return 0;
+		}
+		printf("请输入添加学生数：");
+	    scanf("%d",&NUM);
+	    for(i=0;i<NUM;i++)
+		{
+		    printf("请输入学生编号："); 
+		    scanf("%s",&students[e].id);
+		    printf("请输入学生姓名："); 
+		    scanf("%s",&students[e].name);
+		    for(num=0;num<KIND;num++)
+		    {
+		    	strcpy(students[e].book[num].didian,b);
+		    	strcpy(students[e].book[num].id,b);
+		    	strcpy(students[e].book[num].name,b);
+				students[e].book[num].number=0;
+				students[e].book[num].price=0.0;
+			}
+		    e++	;		
+		} 
+		fprintf(efp,"%d",e);//储存此次学生数数到文件
+	}
+	if(0==c||1==c) 
+	{
+		rewind(fp);
+		for(i=0;i<e;i++)
+			if(fwrite(&students[i],sizeof(xueSheng),1,fp)!=1)//储存至文件中 
+			{
+				printf("文件写入信息提前终止\n");
+				return 0;
+			}
+		printf("学生信息更新成功\n");
+		fclose(fp);
+	}
+	/*查看已存学生信息*/
+	if(2==c||3==c)
+	{
+		if((fp=fopen("students","rb+"))==NULL)//打开文件 
+		{
+			printf("打开文件失败\n");
+			exit(1);
+		}
+		for(i=0;i<e;i++)
+			if(fread(&students[i],sizeof(xueSheng),1,fp)!=1)//读取文件数据至内存 
+			{
+				printf("文件读取信息提前终止\n");
+				return 0;
+			}
+		fclose(fp);//关闭文件
+		printf("是否查看所有学生信息？按1为查看，按任意其他键取消：");
+		scanf("%d",&NUM);
+		if(1==NUM) 
+		{
+			for(i=0;i<e;i++)
+			{
+				p=0;
+				printf("学生编号：%s\n",students[i].id);
+		   		printf("学生姓名：%s\n",students[i].name);
+				for(num=0;num<KIND;num++)
+				{
+					if(strcmp(students[i].book[num].name,b)==0) 
+					{
+						p++;
+						if(KIND==p)
+						printf("该学生还未借书\n");
+						continue;
+					}
+					printf("学生所借书的编号：%s\n",students[i].book[num].id);
+		   			printf("学生所借书书名：%s\n",students[i].book[num].name);
+		   			printf("学生所借书馆藏地：%s\n",students[i].book[num].didian);
+		   			printf("学生所借书书本数：%d\n",students[i].book[num].number);
+		   			printf("学生所借书借阅价格：%lf\n",students[i].book[num].price);  	
+				} 
+				printf("\n"); 
+			}
+			return 0;
+		}
+		if(2==c)
+		{
+			printf("请输入学生姓名："); 
+			scanf("%s",a);
+			for(i=0;i<e;i++)
+			{
+				if(strcmp(a,students[i].name)==0)
+				{
+					printf("学生编号：%s\n",students[i].id);
+		   			printf("学生姓名：%s\n",students[i].name);
+		   			for(num=0;num<KIND;num++)
+					{
+						if(strcmp(students[i].book[num].name,b)==0) 
+						{
+							p++;
+							if(KIND==p)
+							printf("该学生还未借书\n");
+							continue;
+						}
+					   	printf("学生所借书的编号：%s\n",students[i].book[num].id);
+		   				printf("学生所借书书名：%s\n",students[i].book[num].name);
+		   				printf("学生所借书馆藏地：%s\n",students[i].book[num].didian);
+		   				printf("学生所借书书本数：%d\n",students[i].book[num].number);
+		   				printf("学生所借书借阅价格：%lf\n",students[i].book[num].price);  	
+					} 
+					printf("\n"); 
+					count++;
+				}
+				if(i==e-1&&count==0)
+		  		{
+		  		    printf("不存在这名学生，请重新输入学生名字：");
+					scanf("%s",a);
+					i=-1;	
+				}	 
+			}
+		}
+		if(3==c)
+		{
+			printf("请输入学生id："); 
+			scanf("%s",a);
+			for(i=0;i<e;i++) 
+			{
+				if(strcmp(a,students[i].id)==0)
+				{
+					printf("学生编号：%s\n",students[i].id);
+		   			printf("学生姓名：%s\n",students[i].name);
+		   			for(num=0;num<KIND;num++)
+					{
+						if(strcmp(students[i].book[num].name,b)==0) 
+						{
+							p++;
+							if(KIND==p)
+							printf("该学生还未借书\n");
+							continue;
+						}
+					   	printf("学生所借书的编号：%s\n",students[i].book[num].id);
+		   				printf("学生所借书书名：%s\n",students[i].book[num].name);
+		   				printf("学生所借书馆藏地：%s\n",students[i].book[num].didian);
+		   				printf("学生所借书书本数：%d\n",students[i].book[num].number);
+		   				printf("学生所借书借阅价格：%lf\n",students[i].book[num].price);  	
+					}
+					printf("\n"); 
+					count++;
+				}
+				if(i==e-1&&count==0)
+		  		{
+		  		    printf("不存在这名学生，请重新输入学生id：");
+					scanf("%s",a);
+					i=-1;	
+				}	 
+			}	
+		}	
+	}	
+	return 0;
+}
