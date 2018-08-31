@@ -1,0 +1,48 @@
+#include<stdio.h>
+int main(){
+	int N,M,a,b,c,d,e,f,h,i,j;
+	int arr[100000];
+	int brr[2000][2];
+	int temp[100000];
+	scanf("%d%d",&N,&M);
+	for(a=0;a<N;a++){
+		arr[a]=a+1;
+		temp[a]=a+1;
+	}
+	for(b=0;b<M;b++){
+		for(c=0;c<2;c++){
+			scanf("%d",&brr[b][c]);
+		}
+	}
+	/*
+	for(d=0;d<M;d++){
+		temp=arr[brr[d][0]-1];
+		arr[brr[d][0]-1]=arr[brr[d][1]-1];
+		arr[brr[d][1]-1]=temp; 
+	}
+	for(e=0;e<N;e++){
+	printf("%d ",arr[e]);
+	}*/
+	for(d=0;d<M;d++){
+		h=brr[d][0]-1;
+		i=brr[d][1];
+		for(e=h;e<brr[d][1];e++){
+			temp[e]=arr[--i];
+		/*	for(f=0;f<N;f++){
+			printf("%d ",arr[f]);
+			}
+			printf("\n");
+			for(f=0;f<N;f++){
+			printf("%d ",temp[f]);
+			}
+			printf("\n");*/
+		} 
+		for(f=0;f<N;f++){
+			arr[f]=temp[f];
+		}
+	}
+	for(f=0;f<N;f++){
+	printf("%d ",temp[f]);
+	}
+	return 0;
+}
