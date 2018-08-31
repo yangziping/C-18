@@ -1,0 +1,432 @@
+单链表基本运算
+#include<stdio.h>
+#include<stdlib.h>
+#define LEN sizeof(Linklist)
+typedef struct Student
+{
+	int num;
+	int length;
+	struct Student*next;
+}Linklist;
+Linklist *Linklist_delete(Linklist*linklist,int i); 
+int length(Linklist*linklist);
+Linklist*creat(void);
+void print(Linklist*head);
+int main()
+{  
+    int len,i;
+	Linklist*linklist1;
+	linklist1=creat();
+	len=length(linklist1);
+	print(linklist1);
+	printf("\n");
+	for(i=1;i<len;i++)
+	 {
+	 	linklist1=Linklist_delete(linklist1,1);
+	 	print(linklist1);
+	 	printf("\n");
+	 }
+	 printf("empty list!\n");
+	return 0; 
+	
+}
+Linklist*creat()       //头插法建立一个链表 
+{                        //输入链表元素时需要逆序输入 
+	int i=1;
+	Linklist *p1,*p2,*head;
+	head=NULL;
+	p1=p2=(Linklist*)malloc(LEN);
+	scanf("%d",&p1->num);
+	while(p1->num!=0)    //也可以为其他控制条件
+	{
+      if(i==1) 
+      {
+	     p1->next=NULL;
+	     head=p1;
+	  }
+	   else 
+	   {
+	      p1->next=head;
+	      head=p1;
+		}
+		p1=(Linklist*)malloc(LEN);
+	   scanf("%d",&p1->num);
+	   i=2;
+     }
+     return head;
+} 
+int length(Linklist*linklist) //测量链表的长度 
+{
+	int len=0;
+	Linklist *p;
+	p=linklist;
+	while(p!=NULL)
+	{
+	  len=len+1;
+	  p=p->next;	
+	}
+	return len;
+}
+Linklist*Linklist_delete(Linklist*linklist,int i)//删除链表中第i个元素 
+{
+	Linklist*p,*q;
+	p=linklist;
+	int len;
+	int j=1;
+	len=linklist->length;
+	if(i<1||i>len)
+	printf("Error!\n");
+	else if(i==1)
+	linklist=p->next;
+	else 
+	{
+	while(j<i-1)
+	{
+		p=p->next;
+		j=j+1;
+	}
+    q=p->next;
+    p->next=q->next;
+    free(q);
+	return linklist;
+    }
+    
+}
+void print(Linklist*head)//输出一个链表 
+{
+	Linklist*p;
+	p=head;
+	if(p!=NULL)
+	 do
+	 {
+	  printf("%d\t",p->num);
+	  p=p->next;	
+	 }while(p!=NULL);
+}
+###########################################################################
+############################################################################
+单链表基本运算
+#include<stdio.h>
+#include<stdlib.h>
+#define LEN sizeof(Linklist)
+typedef struct Student
+{
+	int num;
+	int length;
+	struct Student*next;
+}Linklist;
+Linklist *Linklist_delete(Linklist*linklist,int i); 
+int length(Linklist*linklist);
+Linklist*creat(void);
+void print(Linklist*head);
+int main()
+{  
+    int len,i;
+	Linklist*linklist1;
+	linklist1=creat();
+	len=length(linklist1);
+	print(linklist1);
+	printf("\n");
+	for(i=1;i<len;i++)
+	 {
+	 	linklist1=Linklist_delete(linklist1,1);
+	 	print(linklist1);
+	 	printf("\n");
+	 }
+	 printf("empty list!\n");
+	return 0; 
+	
+}
+Linklist*creat()       //头插法建立一个链表 
+{                        //输入链表元素时需要逆序输入 
+	int i=1;
+	Linklist *p1,*p2,*head;
+	head=NULL;
+	p1=p2=(Linklist*)malloc(LEN);
+	scanf("%d",&p1->num);
+	while(p1->num!=0)    //也可以为其他控制条件
+	{
+      if(i==1) 
+      {
+	     p1->next=NULL;
+	     head=p1;
+	  }
+	   else 
+	   {
+	      p1->next=head;
+	      head=p1;
+		}
+		p1=(Linklist*)malloc(LEN);
+	   scanf("%d",&p1->num);
+	   i=2;
+     }
+     return head;
+} 
+int length(Linklist*linklist) //测量链表的长度 
+{
+	int len=0;
+	Linklist *p;
+	p=linklist;
+	while(p!=NULL)
+	{
+	  len=len+1;
+	  p=p->next;	
+	}
+	return len;
+}
+Linklist*Linklist_delete(Linklist*linklist,int i)//删除链表中第i个元素 
+{
+	Linklist*p,*q;
+	p=linklist;
+	int len;
+	int j=1;
+	len=linklist->length;
+	if(i<1||i>len)
+	printf("Error!\n");
+	else if(i==1)
+	linklist=p->next;
+	else 
+	{
+	while(j<i-1)
+	{
+		p=p->next;
+		j=j+1;
+	}
+    q=p->next;
+    p->next=q->next;
+    free(q);
+	return linklist;
+    }
+    
+}
+void print(Linklist*head)//输出一个链表 
+{
+	Linklist*p;
+	p=head;
+	if(p!=NULL)
+	 do
+	 {
+	  printf("%d\t",p->num);
+	  p=p->next;	
+	 }while(p!=NULL);
+}
+##############################################################################
+##############################################################################
+单链表上的排序
+#include<stdio.h>
+#include<stdlib.h>
+#define LEN sizeof(Linklist)
+typedef struct Student
+{
+	int num;
+	int length;
+	struct Student*next;
+}Linklist;
+Linklist* creat(void); 
+void changexianglingnode(Linklist*p);
+Linklist*paixu_linklist(Linklist*head);//将无序链表排列为非递减链表 
+int length(Linklist*linklist);
+void print(Linklist*head);//输出一个链表
+int main()
+{  
+    
+	Linklist*linklist1,*p,*linklist2;
+	int len;
+	linklist1=creat();
+	len=length(linklist1);
+	printf("len=%d\n",len); 
+	print(linklist1);
+	printf("\n");
+	linklist2=paixu_linklist(linklist1);
+//	p=linklist1;
+	//changexianglingnode(p);
+	print(linklist2);
+	return 0;                                                                                                                                                                    	
+}
+Linklist*creat(void)//创建一个链表，返回一个struct Student类型的指针
+{
+	Linklist*p1,*p2,*head;
+	int n=0;
+	head=(Linklist*)malloc(LEN);
+	head->next=NULL; 
+	p1=p2=(Linklist*)malloc(LEN);
+	scanf("%d",&p1->num);
+	while(p1->num!=0)
+	{   
+		n=n+1;
+		if(n==1)
+		  head->next=p1;
+		else
+		   p2->next=p1;
+		p2=p1;
+		p1=(Linklist*)malloc(LEN);
+		scanf("%d",&p1->num);    
+	}
+	p2->next=NULL;
+	return (head);
+}
+int length(Linklist*linklist) //测量链表的长度 
+{
+	int len=0;
+	Linklist *p;
+	p=linklist->next;
+	while(p!=NULL)
+	{
+	  len=len+1;
+	  p=p->next;	
+	}
+	return len;
+}
+void print(Linklist*head)//输出一个链表 
+{
+	Linklist*p;
+	p=head->next;
+	if(p!=NULL)
+	 do
+	 {
+	  printf("%d\t",p->num);
+	  p=p->next;	
+	 }while(p!=NULL);
+}
+void changexianglingnode(Linklist*p)//交换两个相邻的节点 
+{
+	Linklist*s,*q;
+	s=p->next;
+	q=s->next;
+	s->next=q->next;
+	q->next=s;
+	p->next=q;
+}
+Linklist*paixu_linklist(Linklist*head)//将无序链表排列为非递减链表 
+{
+	int length(Linklist*linklist);
+	void changexianglingnode(Linklist*p);
+	int len;
+	int i,j;
+	Linklist*p;
+	p=head;
+	len=length(head);
+	for(j=1;j<=len-1;j++)
+	{
+	  p=head;
+	  for(i=1;i<=len-j;i++)
+	  {
+	  	if(p->next->num>p->next->next->num)
+	  	{
+	  		changexianglingnode(p);
+		}
+		p=p->next;
+	  }
+    }
+   return head; 
+}
+×××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+单链表上的排序
+#include<stdio.h>
+#include<stdlib.h>
+#define LEN sizeof(Linklist)
+typedef struct Student
+{
+	int num;
+	int length;
+	struct Student*next;
+}Linklist;
+Linklist* creat(void); 
+void changexianglingnode(Linklist*p);
+Linklist*paixu_linklist(Linklist*head);//将无序链表排列为非递减链表 
+int length(Linklist*linklist);
+void print(Linklist*head);//输出一个链表
+int main()
+{  
+    
+	Linklist*linklist1,*p,*linklist2;
+	int len;
+	linklist1=creat();
+	len=length(linklist1);
+	printf("len=%d\n",len); 
+	print(linklist1);
+	printf("\n");
+	linklist2=paixu_linklist(linklist1);
+//	p=linklist1;
+	//changexianglingnode(p);
+	print(linklist2);
+	return 0;                                                                                                                                                                    	
+}
+Linklist*creat(void)//创建一个链表，返回一个struct Student类型的指针
+{
+	Linklist*p1,*p2,*head;
+	int n=0;
+	head=(Linklist*)malloc(LEN);
+	head->next=NULL; 
+	p1=p2=(Linklist*)malloc(LEN);
+	scanf("%d",&p1->num);
+	while(p1->num!=0)
+	{   
+		n=n+1;
+		if(n==1)
+		  head->next=p1;
+		else
+		   p2->next=p1;
+		p2=p1;
+		p1=(Linklist*)malloc(LEN);
+		scanf("%d",&p1->num);    
+	}
+	p2->next=NULL;
+	return (head);
+}
+int length(Linklist*linklist) //测量链表的长度 
+{
+	int len=0;
+	Linklist *p;
+	p=linklist->next;
+	while(p!=NULL)
+	{
+	  len=len+1;
+	  p=p->next;	
+	}
+	return len;
+}
+void print(Linklist*head)//输出一个链表 
+{
+	Linklist*p;
+	p=head->next;
+	if(p!=NULL)
+	 do
+	 {
+	  printf("%d\t",p->num);
+	  p=p->next;	
+	 }while(p!=NULL);
+}
+void changexianglingnode(Linklist*p)//交换两个相邻的节点 
+{
+	Linklist*s,*q;
+	s=p->next;
+	q=s->next;
+	s->next=q->next;
+	q->next=s;
+	p->next=q;
+}
+Linklist*paixu_linklist(Linklist*head)//将无序链表排列为非递减链表 
+{
+	int length(Linklist*linklist);
+	void changexianglingnode(Linklist*p);
+	int len;
+	int i,j;
+	Linklist*p;
+	p=head;
+	len=length(head);
+	for(j=1;j<=len-1;j++)
+	{
+	  p=head;
+	  for(i=1;i<=len-j;i++)
+	  {
+	  	if(p->next->num>p->next->next->num)
+	  	{
+	  		changexianglingnode(p);
+		}
+		p=p->next;
+	  }
+    }
+   return head; 
+}
