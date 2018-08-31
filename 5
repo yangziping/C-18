@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<stdlib.h>
+void initcr();
+int n,i,j,k;
+int main()
+{
+	scanf("%d",&n);
+	int r[n][n],c[n][n];
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			scanf("%d",&r[i][j]);
+	printf("自反：\n");
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			c[i][j]=r[i][j];
+	for(i=0;i<n;i++)
+		c[i][i]=1;
+	for(i=0;i<n;i++)
+	{	
+		for(j=0;j<n;j++)
+			printf("%d ",c[i][j]);
+		printf("\n");
+	}
+	printf("对称：\n");
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			c[i][j]=r[i][j];
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			if(c[i][j])
+				c[j][i]=1;
+	for(i=0;i<n;i++)
+	{	
+		for(j=0;j<n;j++)
+			printf("%d ",c[i][j]);
+		printf("\n");
+	}
+	printf("传递：\n");
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			c[i][j]=r[i][j];
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			if(c[j][i])
+				for(k=0;k<n;k++)
+				{
+					c[j][k]=c[j][k]+c[i][k];
+					if(c[j][k])
+						c[j][k]=1;
+				}
+	for(i=0;i<n;i++)
+	{	
+		for(j=0;j<n;j++)
+			printf("%d ",c[i][j]);
+		printf("\n");
+	}
+	system("pause");
+	return 0;
+}
