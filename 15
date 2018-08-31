@@ -1,0 +1,196 @@
+#include<iostream>
+using namespace std;
+class Vec4 {
+	float v[4];
+public:
+	Vec4(float w = 0, float x = 0, float y = 0, float z = 0) {
+		v[0] = w; 
+		v[1] = x;
+		v[2] = y; 
+		v[3] = z;
+	}
+	float& operator[](int i) {
+		return v[i];
+	}
+	friend ostream& operator<< (ostream& out, Vec4& v) {
+		cout << '[' << v[0] << ',' << v[1] << ',' << v[2] << ',' << v[3] << ']' ;
+		return out;
+	}
+	Vec4& operator= (Vec4 a) {
+		v[0] = a[0];
+		 v[1] = a[1];
+		v[2] = a[2]; 
+		v[3] = a[3];
+		return *this;
+	}
+	Vec4& operator+ (Vec4 a) {
+		static Vec4 res;
+		res[0] = v[0] + a[0]; 
+		res[1] = v[1] + a[1];
+		res[2] = v[2] + a[2];
+		 res[3] = v[3] + a[3];
+		return res;
+	}
+	Vec4& operator+ (float a) {
+		static Vec4 res;
+		res[0] = v[0] + a; 
+		res[1] = v[1] + a;
+		res[2] = v[2] + a;
+		 res[3] = v[3] + a;
+		return res;
+	}
+	friend Vec4& operator+ (float a, Vec4 b) {
+		static Vec4 res;
+		res[0] = a + b[0]; 
+		res[1] = a + b[1];
+		res[2] = a + b[2]; 
+		res[3] = a + b[3];
+		return res;
+	}
+	Vec4& operator+= (Vec4 a) {
+		v[0] += a[0]; 
+		v[1] += a[1];
+		v[2] += a[2]; 
+		v[3] += a[3];
+		return *this;
+	}
+	Vec4& operator+= (float a) {
+		v[0] += a; 
+		v[1] += a;
+		v[2] += a; 
+		v[3] += a;
+		return *this;
+	}
+	Vec4& operator- (Vec4 a) {
+		static Vec4 res;
+		res[0] = v[0] - a[0];
+		res[1] = v[1] - a[1];
+		res[2] = v[2] - a[2];
+		res[3] = v[3] - a[3];
+		return res;
+	}
+	Vec4& operator- (float a) {
+		static Vec4 res;
+		res[0] = v[0] - a;
+		res[1] = v[1] - a;
+		res[2] = v[2] - a; 
+		res[3] = v[3] - a;
+		return res;
+	}
+	friend Vec4& operator- (float a, Vec4 b) {
+		static Vec4 res;
+		res[0] = a - b[0];
+		res[1] = a - b[1];
+		res[2] = a - b[2];
+		res[3] = a - b[3];
+		return res;
+	}
+	Vec4& operator-= (Vec4 a) {
+		v[0] -= a[0]; 
+		v[1] -= a[1];
+		v[2] -= a[2]; 
+		v[3] -= a[3];
+		return *this;
+	}
+	Vec4& operator-= (float a) {
+		v[0] -= a; 
+		v[1] -= a;
+		v[2] -= a; 
+		v[3] -= a;
+		return *this;
+	}
+	Vec4& operator* (Vec4 a) {
+		static Vec4 res;
+		res[0] = v[0] * a[0]; 
+		res[1] = v[1] * a[1];
+		res[2] = v[2] * a[2]; 
+		res[3] = v[3] * a[3];
+		return res;
+	}
+	Vec4& operator* (float a) {
+		static Vec4 res;
+		res[0] = v[0] * a; 
+		res[1] = v[1] * a;
+		res[2] = v[2] * a; 
+		res[3] = v[3] * a;
+		return res;
+	}
+	friend Vec4& operator* (float a, Vec4 b) {
+		static Vec4 res;
+		res[0] = a * b[0]; 
+		res[1] = a * b[1];
+		res[2] = a * b[2]; 
+		res[3] = a * b[3];
+		return res;
+	}
+	Vec4& operator*= (Vec4 a) {
+		v[0] *= a[0]; 
+		v[1] *= a[1];
+		v[2] *= a[2]; 
+		v[3] *= a[3];
+		return *this;
+	}
+	Vec4& operator*= (float a) {
+		v[0] *= a; 
+		v[1] *= a;
+		v[2] *= a; 
+		v[3] *= a;
+		return *this;
+	}
+	Vec4& operator/ (Vec4 a) {
+		static Vec4 res;
+		res[0] = v[0] / a[0]; 
+		res[1] = v[1] / a[1];
+		res[2] = v[2] / a[2]; 
+		res[3] = v[3] / a[3];
+		return res;
+	}
+	Vec4& operator/ (float a) {
+		static Vec4 res;
+		res[0] = v[0] / a; 
+		res[1] = v[1] / a;
+		res[2] = v[2] / a; 
+		res[3] = v[3] / a;
+		return res;
+	}
+	friend Vec4& operator/ (float a, Vec4 b) {
+		static Vec4 res;
+		res[0] = a / b[0]; 
+		res[1] = a / b[1];
+		res[2] = a / b[2]; 
+		res[3] = a / b[3];
+		return res;
+	}
+	Vec4& operator/= (Vec4 a) {
+		v[0] /= a[0]; 
+		v[1] /= a[1];
+		v[2] /= a[2]; 
+		v[3] /= a[3];
+		return *this;
+	}
+	Vec4& operator/= (float a) {
+		v[0] /= a; 
+		v[1] /= a;
+		v[2] /= a; 
+		v[3] /= a;
+		return *this;
+	}
+};
+int main() {
+	Vec4 test1(1, 2, 3, 4);
+	cout << "test1:	" << test1 << endl;
+	cout << "test1 * 2: " << test1 * 2 << endl;
+	test1 = 2 + test1;
+	cout << "test1 = 2 + test1: " << test1 << endl;
+	Vec4 test2(2, 3, 4, 5);
+	cout << "test2: " << test2 << endl;
+	test1 = test2;
+	cout << "test1 = test2: " << test1 << endl;
+	Vec4 test3(test1);
+	cout << "test3(test1): " << test3 << endl;
+	Vec4 test4(2, 3, 4, 5);
+	cout << "test4 / test3: " << test4 / test3 << endl;
+	cout << "test3: " << test3 << endl;
+	cout << "test4: " << test4 << endl;
+	return 0;
+}
