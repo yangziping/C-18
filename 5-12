@@ -1,0 +1,37 @@
+/*统计在一个string里一对字母出现的次数*/ 
+#include<iostream>
+#include<list>
+#include<set>
+#include<algorithm>
+#include<string>
+using namespace std;
+
+int count_cp1(string const s,char a,char b){
+	int sum=0;
+	string::const_iterator p=s.begin();
+	while(p!=s.end())
+	    if(*p++==a)
+	        if(p!=s.end()&&*p==b)
+	            sum++;
+	return sum;
+}//string
+
+int count_cp2(char const*s,char a,char b){
+	int sum=0;
+	while(*s){
+		if(*s++==a)
+		    if(*s++==b) 
+		        sum++;
+	}
+return sum;
+}//数组 
+
+int main() {
+	string s;
+	char a,b;
+	char c[20];
+	cin>>s>>c>>a>>b;
+	cout<<count_cp1(s,a,b)<<"\n"<<count_cp2(c,a,b);
+	system("pause");
+	return 0;
+}
