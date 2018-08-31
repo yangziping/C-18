@@ -1,0 +1,22 @@
+/*对字符串进行排序，以Quit结尾*/ 
+#include<iostream>
+#include<list>
+#include<set>
+#include<algorithm>
+#include<string>
+using namespace std;
+int com(std::list<string>words, string new_word) {
+	for (std::list<string>::const_iterator i = words.begin(); i != words.end(); i++)
+		if (*i == new_word) return 1;
+	return 0;
+}
+int main() {
+	std::list<string> words;
+	for (string new_word; cin >> new_word,new_word != "Quit";)
+		if (com(words, new_word) == 0) words.push_back(new_word);
+	words.sort();
+	for (std::list<string>::const_iterator i = words.begin(); i != words.end(); i++)
+		cout << *i << "\t"<<endl;
+	system("pause");
+	return 0;
+}
