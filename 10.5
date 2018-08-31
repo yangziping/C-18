@@ -1,0 +1,50 @@
+#include<iostream>
+#include<stdlib.h>
+#include<stddef.h>
+#include<string.h>
+#include<assert.h>
+using namespace std;
+class Histogram{
+	public:
+		Histogram(ptrdiff_t minval,size_t gap,size_t n_bins);
+		~Histogram(){
+			delete[] bin_;}
+		void record(ptrdiff_t);
+		void output_to(std::ostream&);
+		class Bad_date{
+		};//异常类 
+	private:
+		ptrdiff_t const minval_,maxval_;
+		size_t const gap_;
+		size_t *const bin_;
+		size_t n_small_,n_large_;
+};
+Histogram::Histogram(ptrdiff_t m,size_t g,size_t n)
+    :minval_(m),maxval_(m+n*g-1),gap_(g),
+	bin_(new size_t[n]),n_small_(0),n_large_(0){memset(bin_,0,n*sizeof(bin_));
+    assert(g!=0&&n!=0);}
+void Histogram::record(ptrdiff_t datapoint){
+	if(datapoint<minval_)
+	    ++n_small_;
+	else if(datapoint>maxval_)
+	    ++n_large_;
+	else
+	    ++bin_[(datapoint-minval_)/gap_]; 
+}
+void Histogram::output_to(std::ostream &output){
+    output<<"<"<<minval_<<":"<<n_small_<<'\n'; 
+	for(ptrdiff_t left=minval_;left<maxval_;left+=gap_)
+	    output<<left<<".."<<left+gap_-1<<":"<<bin_[(left-minval_)/gap_]<<'\n';
+	output<<">"<<maxval_<<":"<<n_large_-1<<'\n';
+}
+int main(){
+	ptrdiff_t a,n;size_t b,c;
+	cin>>a>>b>>c;
+	Histogram h(a,b,c);
+	while(cin){
+		cin>>n;
+		h.record(n);
+	}
+    h.output_to(cout);
+	return 0;   
+}
