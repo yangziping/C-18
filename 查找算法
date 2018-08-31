@@ -1,0 +1,121 @@
+上机顺序线性查找
+#define MAXSIZE 10
+int SeqSearch(int r[],int k);
+# include<stdio.h>
+int main()
+{
+	int r[MAXSIZE+1];
+	int a,k;
+	r[1]=45;
+	r[2]=23;
+	r[3]=56;
+	r[4]=89;
+	r[5]=90;
+	r[6]=84;
+	r[7]=80;
+	r[8]=2;
+	r[9]=11;
+	r[10]=34;
+    scanf("%d",&k); 
+	a=SeqSearch(r,k);
+	if(a)
+	 printf("a=%d\n",a);
+	return 0; 
+	
+}
+int SeqSearch(int r[],int k)
+{
+	int i;
+	 r[0]=k;
+	for(i=10;r[0]!=r[i];)
+	  i--;
+	if(i==0)
+	  printf("查找无结果\n");
+	else
+	  return i;    
+}
+############################################################################################
+############################################################################################
+上机折半递归查找
+#define MAXSIZE 20 
+#define TRUE 1
+#define FALSE 0
+struct student
+{
+	int r[MAXSIZE];
+	int length;
+};
+int SeqSearch(struct student list,int k,int high,int mid);
+void BubbleSort(struct student *listsen);
+# include<stdio.h>
+int main()
+{
+	int q;
+	struct student list;
+	struct student *listsen;
+	listsen=&list;
+	int a,k;
+	list.r[1]=6;
+	list.r[2]=12;
+	list.r[3]=28;
+	list.r[4]=18;
+	list.r[5]=46;
+	list.r[6]=25;
+	list.r[7]=15;
+	list.r[8]=35;
+	list.r[9]=22;
+	list.r[10]=58;
+	list.r[11]=60;
+	list.length=11;
+	BubbleSort(listsen);
+	for(q=1;q<=list.length;q++)
+	 printf("list.r[%d]=%d\n",q,list.r[q]);
+	 scanf("%d",&k);
+	a=SeqSearch(list,k,list.length,0);
+	if(a)
+	 printf("a=%d\n",a);
+	return 0; 
+	
+}
+int low=1;
+int i;
+int SeqSearch(struct student list,int k,int high,int mid)
+{
+        list.r[0]=k;
+		mid=(low+high)/2;
+		if(list.r[0]==list.r[mid]&&low<=high)
+		  return mid;
+		 else 
+		   if(list.r[0]>list.r[mid])
+		      low=mid+1;
+	     else
+		      high=mid-1; 
+		if(low>high)
+		{
+		     printf("查找无结果\n");
+		     return 0;
+		}
+	if(low<=high)
+	SeqSearch(list,list.r[0],high,mid);
+}
+void BubbleSort(struct student *listsen)
+{
+  int n=listsen->length;
+  int change=TRUE;
+  int p,j;
+  for(p=1;p<=n-1&&change;p++)//如果chang==FALSE说明已经是有序的 
+   {
+   	change=FALSE;
+   	for(j=1;j<=n-p-1;j++)
+   	 if(listsen->r[j]>listsen->r[j+1])
+   	 {
+   	 	listsen->r[0]=listsen->r[j];
+   	 	listsen->r[j]=listsen->r[j+1];
+   	 	listsen->r[j+1]=listsen->r[0];
+   	 	change=TRUE;
+		}
+   }
+  	
+}
+############################################################################################
+##############################################################################################
