@@ -1,0 +1,40 @@
+#include<stdio.h>
+int main(){
+	int N,M;
+	int arr[5000][2];
+	int brr[5000][2];
+	scanf("%d%d",&N,&M);
+	int a,b,c,d;
+	for(a=0;a<M;a++){
+		for(b=0;b<2;b++){
+		scanf("%d",&arr[a][b]);
+		}
+	} 
+	int i,j,k,temp1,temp2;
+	for(i = 0; i < M - 1; i++){
+  		for(j = 0; j < M - i - 1; j++){
+	    	if (arr[j][0] > arr[j+1][0]) {
+				temp1 = arr[j][0];      
+				arr[j][0] = arr[j+1][0];       
+				arr[j+1][0] = temp1;
+				temp2 = arr[j][1];      
+				arr[j][1] = arr[j+1][1];       
+				arr[j+1][1] = temp2;
+		    	}
+			}
+		}
+	int sum=N;
+	int price=0;
+	for(c=0;c<M;c++){
+		if((arr[c][1]-sum)<0){
+			price=price+(arr[c][1]*arr[c][0]);
+			sum=sum-arr[c][1];
+		}
+		if((arr[c][1]-sum)>0) {
+			price=price+(arr[c][0]*sum);
+			break;
+		}
+	}
+	printf("%d",price);
+	return 0;
+} 
