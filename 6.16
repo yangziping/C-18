@@ -1,0 +1,59 @@
+#include <iostream>  
+#include <stdio.h>  
+  
+using std::cout;  
+  
+enum redix{octonary = 8,decimal = 10 ,hexadecimal = 16};  
+  
+int myatoi(const char * num_str)  
+{  
+    unsigned int slen = 0;  
+    int sum = 0;  
+    redix rd ;  
+  
+    if (*num_str == '0' && *(num_str+1) == 'x')  
+    {  
+        rd =  hexadecimal;  
+    }else if (*num_str == '0' )  
+    {  
+        rd = octonary;  
+    }else if(*num_str != '0')  
+    {  
+        rd = decimal;  
+    }  
+  
+  
+    const char* tp = num_str;  
+    if (*tp == '0' )  
+    {  
+        tp++;  
+    }  
+    if (*tp == 'x')  
+    {  
+        tp++;  
+    }  
+    const char * tp1 = tp;  
+    while(*tp1++ != '\0'){  
+        slen++;  
+    }  
+    cout<<" the strlen is "<< slen<<"\n";  
+  
+    for (int i = 0; i < slen; ++i)  
+    {  
+        int temp = (int)(*tp++ - '0');  
+        for (int j = slen-i-1; j > 0; --j)  
+        {  
+            temp *= rd;  
+        }  
+        cout<<"the temp is "<<temp<<"\n";  
+        sum += temp;  
+    }  
+  
+    return sum;  
+}  
+  
+int main()  
+{  
+    int i = myatoi("0x123");  
+    cout<<"the sum is "<<i<<"\n";  
+}  
