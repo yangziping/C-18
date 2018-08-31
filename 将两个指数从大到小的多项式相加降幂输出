@@ -1,0 +1,300 @@
+typedef struct Polynode   //多项式中的每一项 
+{
+	int coef;             //系数 
+	int exp;          //指数 
+	struct Polynode*next;
+} Polynode,Polylist;
+#define LEN sizeof(Polynode)
+#include<stdio.h>
+#include<stdlib.h>
+Polylist*creat(void);
+int length(Polylist*polylist);
+Polylist*PolyAdd(Polylist*polylist1,Polylist*polylist2);
+void print(Polylist*head);
+Polylist*paixu_linklist(Polylist*head);
+int main()
+{
+	int Len;
+	Polylist*polylist1,*polylist2,*polylist3,*polylist4;
+	polylist1=creat();
+	polylist2=creat();
+	polylist3=PolyAdd(polylist1,polylist2);
+	polylist4=paixu_linklist(polylist3);
+	print(polylist4);
+	return 0;
+}
+Polylist*creat(void)//创建一个链表，返回一个struct Student类型的指针
+{
+	Polylist*p1,*p2,*head;
+	int n=0;
+	head=(Polylist*)malloc(LEN);
+	head->next=NULL; 
+	p1=p2=(Polylist*)malloc(LEN);
+	scanf("%d%d",&p1->coef,&p1->exp);
+	while(p1->coef!=0)
+	{   
+		n=n+1;
+		if(n==1)
+		  head->next=p1;
+		else
+		   p2->next=p1;
+		p2=p1;
+		p1=(Polylist*)malloc(LEN);
+		scanf("%d%d",&p1->coef,&p1->exp);    
+	}
+	p2->next=NULL;
+	return (head);
+}
+int length(Polylist*polylist) //测量链表的长度 
+{
+	int len=0;
+	Polylist *p;
+	p=polylist->next;
+	while(p!=NULL)
+	{
+	  len=len+1;
+	  p=p->next;	
+	}
+	return len;
+}
+void print(Polylist*head)//输出一个链表 
+{
+	Polylist*p;
+	p=head->next;
+	if(p!=NULL)
+	 do
+	 {
+	  printf("%d\t%d\n",p->coef,p->exp);
+	  p=p->next;	
+	 }while(p!=NULL);
+}
+Polylist*PolyAdd(Polylist*polylist1,Polylist*polylist2)
+{
+	Polylist*pa,*pb,*polylist3,*pc;
+	pa=polylist1->next;
+	pb=polylist2->next;
+	polylist3=polylist1;
+	polylist3->next=NULL;
+	pc=polylist3;
+	while(pa!=NULL&&pb!=NULL)
+	{
+		if(pa->exp<pb->exp)
+		{
+		  pc->next=pa;
+		  pc=pa;
+		  pa=pa->next;
+	   }
+	   else if(pa->exp==pb->exp)
+		{
+		 if(pa->coef+pb->coef==0)
+		 {
+		   pa=pa->next;
+		   pb=pb->next;
+	     }
+	     else
+	     {
+	     	pa->coef=pa->coef+pb->coef;
+	     	pc->next=pa;
+		    pc=pa;
+		    pa=pa->next;
+			pb=pb->next;	
+		 }
+		} 
+		else
+		{
+			pc->next=pb;
+			pc=pb;
+			pb=pb->next;
+		}
+		 
+	}
+	if(pa!=NULL)
+	  pc->next=pa;
+	 else
+	  pc->next=pb;
+	 free(polylist2);
+	 return polylist3;  
+}
+void changexianglingnode(Polylist*p)//交换两个相邻的节点 
+{
+	Polylist*s,*q;
+	s=p->next;
+	q=s->next;
+	s->next=q->next;
+	q->next=s;
+	p->next=q;
+}
+Polylist*paixu_linklist(Polylist*head) 
+{
+	int length(Polylist*polylist);
+	void changexianglingnode(Polylist*p);
+	int len;
+	int i,j;
+	Polylist*p;
+	p=head;
+	len=length(head);
+	for(j=1;j<=len-1;j++)
+	{
+	  p=head;
+	  for(i=1;i<=len-j;i++)
+	  {
+	  	if(p->next->exp<p->next->next->exp)
+	  	{
+	  		changexianglingnode(p);
+		}
+		p=p->next;
+	  }
+    }
+   return head; 
+}
+#####################################################################
+#####################################################################
+typedef struct Polynode   //多项式中的每一项 
+{
+	int coef;             //系数 
+	int exp;          //指数 
+	struct Polynode*next;
+} Polynode,Polylist;
+#define LEN sizeof(Polynode)
+#include<stdio.h>
+#include<stdlib.h>
+Polylist*creat(void);
+int length(Polylist*polylist);
+Polylist*PolyAdd(Polylist*polylist1,Polylist*polylist2);
+void print(Polylist*head);
+Polylist*paixu_linklist(Polylist*head);
+int main()
+{
+	int Len;
+	Polylist*polylist1,*polylist2,*polylist3,*polylist4;
+	polylist1=creat();
+	polylist2=creat();
+	polylist3=PolyAdd(polylist1,polylist2);
+	polylist4=paixu_linklist(polylist3);
+	print(polylist4);
+	return 0;
+}
+Polylist*creat(void)//创建一个链表，返回一个struct Student类型的指针
+{
+	Polylist*p1,*p2,*head;
+	int n=0;
+	head=(Polylist*)malloc(LEN);
+	head->next=NULL; 
+	p1=p2=(Polylist*)malloc(LEN);
+	scanf("%d%d",&p1->coef,&p1->exp);
+	while(p1->coef!=0)
+	{   
+		n=n+1;
+		if(n==1)
+		  head->next=p1;
+		else
+		   p2->next=p1;
+		p2=p1;
+		p1=(Polylist*)malloc(LEN);
+		scanf("%d%d",&p1->coef,&p1->exp);    
+	}
+	p2->next=NULL;
+	return (head);
+}
+int length(Polylist*polylist) //测量链表的长度 
+{
+	int len=0;
+	Polylist *p;
+	p=polylist->next;
+	while(p!=NULL)
+	{
+	  len=len+1;
+	  p=p->next;	
+	}
+	return len;
+}
+void print(Polylist*head)//输出一个链表 
+{
+	Polylist*p;
+	p=head->next;
+	if(p!=NULL)
+	 do
+	 {
+	  printf("%d\t%d\n",p->coef,p->exp);
+	  p=p->next;	
+	 }while(p!=NULL);
+}
+Polylist*PolyAdd(Polylist*polylist1,Polylist*polylist2)
+{
+	Polylist*pa,*pb,*polylist3,*pc;
+	pa=polylist1->next;
+	pb=polylist2->next;
+	polylist3=polylist1;
+	polylist3->next=NULL;
+	pc=polylist3;
+	while(pa!=NULL&&pb!=NULL)
+	{
+		if(pa->exp<pb->exp)
+		{
+		  pc->next=pa;
+		  pc=pa;
+		  pa=pa->next;
+	   }
+	   else if(pa->exp==pb->exp)
+		{
+		 if(pa->coef+pb->coef==0)
+		 {
+		   pa=pa->next;
+		   pb=pb->next;
+	     }
+	     else
+	     {
+	     	pa->coef=pa->coef+pb->coef;
+	     	pc->next=pa;
+		    pc=pa;
+		    pa=pa->next;
+			pb=pb->next;	
+		 }
+		} 
+		else
+		{
+			pc->next=pb;
+			pc=pb;
+			pb=pb->next;
+		}
+		 
+	}
+	if(pa!=NULL)
+	  pc->next=pa;
+	 else
+	  pc->next=pb;
+	 free(polylist2);
+	 return polylist3;  
+}
+void changexianglingnode(Polylist*p)//交换两个相邻的节点 
+{
+	Polylist*s,*q;
+	s=p->next;
+	q=s->next;
+	s->next=q->next;
+	q->next=s;
+	p->next=q;
+}
+Polylist*paixu_linklist(Polylist*head) 
+{
+	int length(Polylist*polylist);
+	void changexianglingnode(Polylist*p);
+	int len;
+	int i,j;
+	Polylist*p;
+	p=head;
+	len=length(head);
+	for(j=1;j<=len-1;j++)
+	{
+	  p=head;
+	  for(i=1;i<=len-j;i++)
+	  {
+	  	if(p->next->exp<p->next->next->exp)
+	  	{
+	  		changexianglingnode(p);
+		}
+		p=p->next;
+	  }
+    }
+   return head; 
+}
