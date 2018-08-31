@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+	char a[30],b[30];
+	int i,j,k,l;
+	for(i=0;;i++)
+	{
+	   scanf("%c",&a[i]);
+	   if(a[i]==' ')
+	     break;
+    }
+    for(j=0;;j++)
+    {
+    	scanf("%c",&b[j]);
+    	if(b[j]=='\n')
+    	break;
+	}
+	l=(i<j)?i:j;
+	for(k=0;k<=l;k++)
+	{
+		if(a[k]==b[k])
+		printf("%c",a[k]);
+	}
+	printf("\n");
+	system("pause");
+	return 0;
+ } 
